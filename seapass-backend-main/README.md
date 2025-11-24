@@ -1,117 +1,151 @@
-Documentação do SeaPass — Backend
-1. Tecnologias Utilizadas
+# Documentação Backend do Seapass
 
-O backend do SeaPass foi desenvolvido utilizando:
-
-Linguagem e Framework
-
-Python 3.10+
-
-Flask (API REST com respostas em JSON)
-
-Banco de Dados
-
-PostgreSQL
-
-Driver de conexão: psycopg2-binary
-
-Ferramentas Complementares
-
-Ambiente virtual (venv)
-
-Arquivo .env para variáveis de ambiente
-
-requirements.txt para dependências
-
-2. Estrutura do Projeto
-
-Padrão organizado por módulos:
-
-app/
-├ config (configuração do banco)
-├ models (modelos e ORM)
-├ routes (rotas da API)
-└ services (lógica de serviço)
+> Documentação passo a passo para configurar, rodar e entender o backend do projeto SeaPass. Inclui todas as ferramentas utilizadas, comandos de terminal desde a criação de pastas até execução, exemplos de código e notas para produção.
 
 
-Arquivos adicionais:
+## 📌 1. Resumo do Projeto
 
-main.py — inicialização do servidor
 
-database.py — conexão com PostgreSQL
+O backend do SeaPass é uma API REST construída em **Python** (ex.: Flask ou FastAPI).  
+Ela expõe endpoints consumidos pelo frontend em formato **JSON** e se conecta a um banco de dados (ex.: **PostgreSQL**) para persistência.
 
-create_tables.py — criação das tabelas
+> Esta documentação foca apenas no backend: criação do projeto, instalação, conexão com o banco e execução local.
 
-test_db.py — teste da conexão
 
-.env — credenciais e porta
+## 📂 2. Estrutura Real do Projeto
 
-.gitignore — controle de versão
+seapass-backend-main/
+│
+├── app/
+│ ├── config/
+│ │ └── db_config.py
+│ ├── models/
+│ │ ├── init.py
+│ │ └── models.py
+│ ├── routes/
+│ │ ├── init.py
+│ │ └── main_routes.py
+│ └── services/
+│ └── init.py
+│
+├── .env
+├── .gitignore
+├── create_tables.py
+├── cspell.json
+├── database.py
+├── main.py
+├── requirements.txt
+├── test_db.py
+└── .gitattributes
 
-3. Funcionalidade Geral da API
 
-3.1 Estrutura REST
-Endpoints retornam e recebem JSON.
+## 🧩 3. Ferramentas e Dependências Utilizadas
 
-3.2 Comunicação com Front-End
-Requisitado pelo SeaPass Web.
+### 🔹 Linguagem / Framework
+- Python 3.10+ (recomendado)
+- Flask (ou FastAPI — exemplos abaixo utilizam Flask)
 
-3.3 Persistência de Dados
-Conexão direta com PostgreSQL para armazenamento.
+### 🔹 Banco de Dados
+- PostgreSQL  
+- Driver: `psycopg2-binary`
 
-4. Passos de Instalação
+---
 
-4.1 Instalar Python 3.10+
-Com opção "Add to PATH".
+## 🛠 4. Instalação e Configuração do Ambiente
 
-4.2 Criar ambiente virtual
+### ✅ 4.1 Instalar Python 3.10+
+Baixar no site oficial e marcar a opção:
+Add Python to PATH
 
+yaml
+Copiar código
+
+---
+
+### ✅ 4.2 Criar e ativar ambiente virtual
+
+#### Windows:
 python -m venv venv
-
-
-4.3 Ativar ambiente virtual
-Windows:
-
 venv\Scripts\activate
 
+shell
+Copiar código
 
-Linux/Mac:
-
+#### Linux/Mac:
+python3 -m venv venv
 source venv/bin/activate
 
+yaml
+Copiar código
 
-4.4 Instalar dependências
+---
 
+### ✅ 4.3 Instalar dependências
 pip install -r requirements.txt
 
-5. Configuração do Banco de Dados
+yaml
+Copiar código
 
-5.1 Instalar PostgreSQL
-Incluindo Console Tools
+---
 
-5.2 Criar banco e usuário
+### ✅ 4.4 Instalar PostgreSQL
+Instalar:
 
+✅ PostgreSQL Server  
+✅ Command Line Tools  
+
+Testar instalação:
+psql --version
+
+yaml
+Copiar código
+
+---
+
+### ✅ 4.5 Criar banco e usuário
+
+Entrar no console:
+psql -U postgres
+
+sql
+Copiar código
+
+Executar SQL:
 CREATE DATABASE seapass_db;
 CREATE USER seapass_user WITH ENCRYPTED PASSWORD 'senha123';
 GRANT ALL PRIVILEGES ON DATABASE seapass_db TO seapass_user;
 
+yaml
+Copiar código
 
-5.3 Configurar .env
+---
+
+### ✅ 4.6 Criar arquivo `.env`
 
 DATABASE_URL=postgresql://seapass_user:senha123@localhost:5432/seapass_db
 PORT=4000
 
-6. Execução do Backend
+yaml
+Copiar código
 
-6.1 Testar conexão com banco
+---
+
+### ✅ 4.7 Testar banco
 
 python test_db.py
 
+yaml
+Copiar código
 
-6.2 Rodar servidor
+---
+
+### ✅ 4.8 Rodar backend
 
 python main.py
 
+css
+Copiar código
 
-6.3 Endereço padrão
+Servidor disponível em:
+
 http://localhost:4000
